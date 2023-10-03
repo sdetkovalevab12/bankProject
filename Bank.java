@@ -2,7 +2,7 @@ package BankGroupProject;
 
 import java.io.*;
 import java.util.*;
-
+//comment
 public class Bank {
     List <BankAccount> accounts = new ArrayList<>();
 
