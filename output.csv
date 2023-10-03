@@ -1,0 +1,10 @@
+class BankGroupProject.SavingsAccount,1001,John Doe,5000.0,0.03
+class BankGroupProject.CheckingAccount,1002,Jane Doe,2000.0,1000.0
+class BankGroupProject.SavingsAccount,1003,Jim Beam,7500.0,0.04
+class BankGroupProject.CheckingAccount,1004,Jack Daniels,1000.0,500.0
+class BankGroupProject.SavingsAccount,1005,Mary Johnson,10000.0,0.02
+class BankGroupProject.CheckingAccount,1006,Michael Smith,1500.0,750.0
+class BankGroupProject.SavingsAccount,1007,Chris Lee,8000.0,0.03
+class BankGroupProject.CheckingAccount,1008,Alice Williams,3000.0,1200.0
+class BankGroupProject.SavingsAccount,1009,Bob Brown,6500.0,0.025
+class BankGroupProject.CheckingAccount,1010,Karen Rodriguez,1800.0,900.0

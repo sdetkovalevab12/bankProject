@@ -1,0 +1,179 @@
+Bank Account Management Application
+
+Objective:
+
+Develop a Java application that manages bank accounts.
+The application should be able to handle multiple accounts, each with a unique account number, account holder name, and balance.
+The application should demonstrate the principles of OOP, including encapsulation, inheritance, polymorphism, and abstraction.
+It should use Lists, Comparator for sorting,  exception handling, and read/write operations to files.
+
+Classes to Implement:
+1. BankAccount class (abstract):
+
+    Fields:
+
+    accountNumber: Long
+    accountHolder: String
+    balance: Double
+
+    Methods:
+
+    Constructor
+    Getter and Setter for each field
+    deposit(double amount): abstract method. Increases the balance by the amount. Should be implemented in subclasses.
+    withdraw(double amount): abstract method. Decreases the balance by the amount. Throws a custom exception InsufficientFundsException if balance is insufficient.       InsufficientFundsException class details are given below. Should be implemented in a subclasses.
+    toString(): Overridden from Object class
+
+2. InterestRate Interface:
+
+    Methods:
+    calculateInterest(): This method should calculate the interest based on the balance of the bank account.
+
+3. CheckingAccount class extends BankAccount:
+
+   Fields:
+
+   overdraftLimit: Double
+   Inherit fields from BankAccount.
+
+   Methods:
+
+   Constructor
+   Getter and Setter for overdraftLimit.
+   Override deposit(): Increases the balance by the given amount
+   Override withdraw() method:
+       It is required to perform a withdrawal operation on a bank account with an overdraft limit.
+       The method takes one parameter, amount, representing the amount to be withdrawn.
+       The method should check if withdrawing the specified amount would exceed the account's balance plus its overdraft limit.
+       If the withdrawal would exceed this limit, the method should throw an InsufficientFundsException with a message indicating that the overdraft limit has been exceeded.
+       If the withdrawal is within the limit, the method should update the account's balance by subtracting the amount from the balance.
+
+   Override toString() method to include the overdraft limit.
+
+4. SavingsAccount class extends BankAccount class and implements InterestRate interface:
+
+   Fields:
+
+   interestRate: Double
+   Inherit fields from BankAccount.
+
+   Methods:
+
+   Constructor
+   Getter and Setter for interestRate.
+   calculateInterest(): Implement the method from the InterestRate interface to calculate interest for the SavingsAccount. Returns interestRate * balance
+   Override deposit(): Increases the balance by the given amount
+   Override withdraw():
+          It is required to perform a withdrawal operation on a bank account.
+          The method takes one parameter, amount, representing the amount to be withdrawn.
+          The method should check if withdrawing the specified amount would exceed the account's balance.
+          If the withdrawal would exceed this limit, the method should throw an InsufficientFundsException with a message indicating that the withdrawal limit has been exceeded.
+          If the withdrawal is within the limit, the method should update the account's balance by subtracting the amount from the balance.
+   Override toString() method to include the interest rate.
+
+5. InsufficientFundsException class:
+
+    Custom exception class that extends RuntimeException.
+    Add a constructor that accepts a message.
+
+6. Bank class:
+
+    Fields:
+
+    accounts: List<BankAccount>
+
+    Methods:
+
+    - addAccount(BankAccount account): Adds a bank account to the accounts list.
+    - getAccount(Long accountNumber): Retrieves a bank account from the list based on the account number.
+            The method iterates through the accounts collection, comparing each account's number with the provided accountNumber.
+            If it finds a match, it returns the corresponding BankAccount object.
+            If no matching account is found after iterating through all accounts,
+            the method returns null, indicating that no account with the given number exists in the collection.
+    - removeAccount(Long accountNumber): Removes a bank account based on account number.
+    - sortAccountsByName(): Sorts the accounts list by account holder’s name using a Comparator.
+    - sortAccountsByAccountNumber(): Sorts the accounts list by account holder’s account number using a Comparator.
+    - readAccountsFromFile(String fileName): Reads the account details from a file and adds them to the list of accounts.
+             It accepts a fileName, representing the name of the file from which the account data will be read.
+             Inside the method, a BufferedReader is used to read the file line by line.
+             Each line is presumed to represent a bank account, with individual account details separated by commas.
+             The method splits each line into parts and extracts the account type, account number, account holder, and balance.
+             Depending on the account type given in the csv file, either a SavingsAccount or CheckingAccount object is created with the extracted details, and the respective interest rate or overdraft limit.
+             Each successfully created BankAccount object is added to the collection of accounts in the system using the addAccount method.
+             In case of any IOException during file reading, the exception is caught and its stack trace is printed, ensuring the program doesn't crash due to file read issues.
+    - writeAccountsToFile(String fileName): Writes the current list of accounts to a file. Handle file exceptions appropriately.
+    - viewAccounts(): Displays the current list of accounts.
+
+7. InsufficientFundsException class:
+
+    Custom exception class that extends Exception.
+    Constructor should accept a custom message.
+
+8. Main class:
+
+    Main method steps:
+
+    Step 1: Initialize the Application
+    Create a Bank object to manage bank accounts and a Scanner object to read input from the console.
+
+    Step 2: Display Main Menu
+    In a loop ( tip: use while(true) ), continuously display the main menu with the following options:
+
+    Add Savings Account: Allows the user to add a Savings Account.
+    Add Checking Account: Allows the user to add a Checking Account.
+    Deposit Money: Allows the user to deposit money into an account.
+    Withdraw Money: Allows the user to withdraw money from an account.
+    Display Accounts: Displays all the accounts in the bank.
+    Save Accounts to File: Saves the account details to a CSV file.
+    Load Accounts from File: Loads the account details from a CSV file.
+    Exit: Exits the application.
+
+    Step 3: Read User Input
+    Prompt the user to enter a choice corresponding to the menu options. Read the user input using the Scanner object.
+
+    Step 4: Execute the Corresponding Operation
+    Based on the user’s input, execute the corresponding operation (use switch for the options):
+
+    Add Savings Account:
+    Prompt the user for the accountNumber, accountHolder, balance, and interestRate.
+    Create a new SavingsAccount object and add it to the account list.
+
+    Add Checking Account:
+    Prompt the user for the accountNumber, accountHolder, balance, and overdraftLimit.
+    Create a new CheckingAccount object and add it to the account list.
+
+    Deposit Money:
+    Prompt the user for the accountNumber and amount to deposit.
+    Retrieve the account from the bank using accountNumber.
+    Call the deposit method on the retrieved account.
+
+    Withdraw Money:
+    Prompt the user for the accountNumber and amount to withdraw.
+    Retrieve the account from the bank using accountNumber.
+    Call the withdraw method on the retrieved account.
+    Handle any InsufficientFundsException.
+
+    Sort Accounts By Name:
+    Call the sortAccountsByName method on the Bank object that sort accounts by name.
+
+    Sort Accounts By Account Number:
+    Call the sortAccountsByAccountNumber method on the Bank object that sort accounts by account number.
+
+    Display Accounts:
+    Call the viewAccounts method on the Bank object that prints the accounts list.
+
+    Save Accounts to File:
+    Prompt the user for the filename. (Use the file is already created for you: output.csv)
+    Call the writeAccountsToFile method on the Bank object with the specified filename.
+
+    Load Accounts from File:
+    Prompt the user for the filename.(Use the file is already created for you: input.csv)
+    Call the readAccountsFromFile method on the Bank object with the specified filename.
+
+    Exit:
+    Display goodbye message and exit the application using System.exit(0).
+
+
+    Your loop needs to repeat the above steps unless the user chooses to exit.
+
+    Example of the outputs are attached as screenshots and also a video recording (download the recoring to view it)
